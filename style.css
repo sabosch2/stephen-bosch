@@ -21,15 +21,16 @@
 
 /* ============================ 1. DESIGN TOKENS ========================== */
 :root {
-  /* Colours — tweak the accent to re-brand the whole site */
+  /* Colours — tweak the accent to re-brand the whole site.
+     These are matched to the logo: orange #E1701F + dark #24262B. */
   --bg:          #ffffff;   /* page background */
-  --bg-alt:      #f6f7f9;   /* tinted section background */
-  --ink:         #0f172a;   /* main text (near-black navy) */
-  --ink-soft:    #55607a;   /* muted / secondary text */
-  --line:        #e4e7ec;   /* borders and dividers */
-  --accent:      #4f46e5;   /* primary accent (indigo) */
-  --accent-dark: #3f37c9;   /* accent on hover */
-  --accent-soft: #eef0fe;   /* very light accent tint */
+  --bg-alt:      #f7f6f4;   /* tinted section background (warm) */
+  --ink:         #24262B;   /* main text (matches the logo's dark) */
+  --ink-soft:    #6b6a72;   /* muted / secondary text */
+  --line:        #e7e4df;   /* borders and dividers (warm) */
+  --accent:      #E1701F;   /* primary accent (logo orange) */
+  --accent-dark: #c25f14;   /* accent on hover */
+  --accent-soft: #fbeadd;   /* very light accent tint */
 
   /* Fonts — loaded from Google Fonts in index.html <head> */
   --font-head: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
@@ -106,6 +107,7 @@ a:hover { color: var(--accent-dark); }
   color: var(--ink); letter-spacing: -0.01em;
 }
 .nav-logo span { color: var(--accent); }
+.nav-logo img { height: 34px; width: auto; display: block; }
 .nav-links { list-style: none; display: flex; gap: var(--sp-3); align-items: center; }
 .nav-links a { color: var(--ink-soft); font-size: 0.92rem; font-weight: 500; }
 .nav-links a:hover { color: var(--ink); }

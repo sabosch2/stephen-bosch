@@ -8,6 +8,11 @@
 
   <link rel="stylesheet" href="style.css" />
 
+  <!-- Favicons (the little icon shown in the browser tab) -->
+  <link rel="icon" href="assets/sb-favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/sb-favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="assets/sb-favicon-180.png" />
+
   <!-- Google Fonts: Space Grotesk (headings), Inter (body), JetBrains Mono (labels) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,8 +24,11 @@
   <!-- ============================ NAV ============================ -->
   <nav class="nav">
     <div class="nav-inner">
-      <!-- Your name is the logo. The <span> part shows in the accent colour. -->
-      <a href="index.html" class="nav-logo">Stephen<span>.</span></a>
+      <!-- Logo lockup (cube mark + "stephen bosch" wordmark). To go back to
+           plain text, replace the <img> with: Stephen<span>.</span> -->
+      <a href="index.html" class="nav-logo">
+        <img src="assets/sb-logo-lockup.svg" alt="Stephen Bosch" />
+      </a>
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#work">Work</a></li>
