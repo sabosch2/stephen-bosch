@@ -1,11 +1,11 @@
 /* =========================================================================
-   stephen-bosch.com — personal webpage stylesheet
+   stephen-bosch.com - personal webpage stylesheet
    -------------------------------------------------------------------------
    A standalone site, separate from the In Transit travel blog. It has its
    own look on purpose: cleaner and more typographic than 2intransit.com.
 
    Structure of this file:
-     1. Design tokens (colours, fonts, spacing) — change these to re-theme.
+     1. Design tokens (colours, fonts, spacing) - change these to re-theme.
      2. Base / resets
      3. Layout helpers (container, sections)
      4. Navigation
@@ -20,7 +20,7 @@
 
 /* ============================ 1. DESIGN TOKENS ========================== */
 :root {
-  /* Colours — matched to the logo: orange #E1701F + dark #24262B. */
+  /* Colours - matched to the logo: orange #E1701F + dark #24262B. */
   --bg:          #ffffff;   /* page background */
   --bg-alt:      #f7f6f4;   /* tinted section background (warm) */
   --ink:         #24262B;   /* main text (matches the logo's dark) */
@@ -30,7 +30,7 @@
   --accent-dark: #c25f14;   /* accent on hover */
   --accent-soft: #fbeadd;   /* very light accent tint */
 
-  /* Fonts — loaded from Google Fonts in the page <head> */
+  /* Fonts - loaded from Google Fonts in the page <head> */
   --font-head: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
@@ -107,7 +107,7 @@ a:hover { color: var(--accent-dark); }
 }
 .nav-logo span { color: var(--accent); }
 /* Logo height is tuned so the "stephen bosch" wordmark inside the SVG
-   renders at ~0.92rem — the same size as the nav links to its right. */
+   renders at ~0.92rem - the same size as the nav links to its right. */
 .nav-logo img { height: 44px; width: auto; display: block; }
 
 .nav-links { list-style: none; display: flex; gap: var(--sp-3); align-items: center; }
@@ -137,6 +137,9 @@ a:hover { color: var(--accent-dark); }
   display: grid; grid-template-columns: 1.2fr 0.8fr;
   gap: var(--sp-5); align-items: center;
 }
+/* Sized so each sentence of the headline fits on its own line - the <br>
+   in the HTML controls where it breaks. Shrink this if you lengthen it. */
+.hero h1 { font-size: clamp(1.6rem, 3.2vw, 2.4rem); line-height: 1.3; }
 .hero h1 .accent { color: var(--accent); }
 .hero-sub { font-size: 1.15rem; max-width: 50ch; margin-top: var(--sp-3); }
 
@@ -213,7 +216,7 @@ a:hover { color: var(--accent-dark); }
 .note-header h1 { font-size: clamp(1.9rem, 4vw, 2.6rem); }
 .note-header .note-date { display: block; margin-bottom: var(--sp-2); }
 
-/* Body text of a note — comfortable reading measure */
+/* Body text of a note - comfortable reading measure */
 .prose { padding-block: var(--sp-4) var(--sp-6); }
 .prose p { font-size: 1.05rem; color: var(--ink); }
 .prose p + p { margin-top: var(--sp-3); }
