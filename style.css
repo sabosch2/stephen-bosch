@@ -1,0 +1,219 @@
+/* =========================================================================
+   stephen-bosch.com — portfolio stylesheet
+   -------------------------------------------------------------------------
+   This is a STANDALONE site, separate from the In Transit travel blog.
+   It has its own look on purpose: a modern, technical portfolio style
+   rather than the warm serif style of 2intransit.com.
+
+   The file is organised top-to-bottom:
+     1. Design tokens (colours, fonts, spacing) — change these to re-theme.
+     2. Base / resets
+     3. Layout helpers (container, sections)
+     4. Navigation
+     5. Buttons
+     6. Hero
+     7. About / bio
+     8. Skills
+     9. Projects
+     10. Contact + footer
+     11. Responsive tweaks
+   ========================================================================= */
+
+/* ============================ 1. DESIGN TOKENS ========================== */
+:root {
+  /* Colours — tweak the accent to re-brand the whole site */
+  --bg:          #ffffff;   /* page background */
+  --bg-alt:      #f6f7f9;   /* tinted section background */
+  --ink:         #0f172a;   /* main text (near-black navy) */
+  --ink-soft:    #55607a;   /* muted / secondary text */
+  --line:        #e4e7ec;   /* borders and dividers */
+  --accent:      #4f46e5;   /* primary accent (indigo) */
+  --accent-dark: #3f37c9;   /* accent on hover */
+  --accent-soft: #eef0fe;   /* very light accent tint */
+
+  /* Fonts — loaded from Google Fonts in index.html <head> */
+  --font-head: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+
+  /* Spacing scale */
+  --sp-1: 0.5rem;
+  --sp-2: 1rem;
+  --sp-3: 1.5rem;
+  --sp-4: 2.5rem;
+  --sp-5: 4rem;
+  --sp-6: 6rem;
+
+  --maxw: 1080px;   /* max content width */
+  --radius: 10px;   /* rounded-corner size */
+}
+
+/* ============================ 2. BASE / RESET =========================== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-family: var(--font-head); line-height: 1.15; font-weight: 600; }
+h1 { font-size: clamp(2.4rem, 6vw, 3.8rem); letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.6rem, 3.5vw, 2.2rem); letter-spacing: -0.01em; }
+h3 { font-size: 1.2rem; }
+
+p { color: var(--ink-soft); }
+
+a { color: var(--accent); text-decoration: none; transition: color 150ms ease; }
+a:hover { color: var(--accent-dark); }
+
+/* Small monospace label used above section headings, e.g. "01 / ABOUT" */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: inline-block;
+  margin-bottom: var(--sp-2);
+}
+
+/* ============================ 3. LAYOUT ================================= */
+.container { max-width: var(--maxw); margin-inline: auto; padding-inline: var(--sp-3); }
+
+.section { padding-block: var(--sp-6); }
+.section--alt { background: var(--bg-alt); border-block: 1px solid var(--line); }
+.section-lead { max-width: 620px; margin-top: var(--sp-2); }
+
+/* ============================ 4. NAVIGATION ============================= */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner {
+  max-width: var(--maxw); margin-inline: auto;
+  padding: var(--sp-2) var(--sp-3);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-family: var(--font-head); font-weight: 700; font-size: 1.05rem;
+  color: var(--ink); letter-spacing: -0.01em;
+}
+.nav-logo span { color: var(--accent); }
+.nav-links { list-style: none; display: flex; gap: var(--sp-3); align-items: center; }
+.nav-links a { color: var(--ink-soft); font-size: 0.92rem; font-weight: 500; }
+.nav-links a:hover { color: var(--ink); }
+
+/* ============================ 5. BUTTONS =============================== */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font-body); font-weight: 500; font-size: 0.95rem;
+  padding: 0.7rem 1.3rem; border-radius: var(--radius);
+  border: 1px solid transparent; cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent-dark); color: #fff; }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+.btn--sm { padding: 0.45rem 0.9rem; font-size: 0.85rem; }
+
+/* ============================ 6. HERO ================================== */
+.hero { padding-block: var(--sp-6) var(--sp-5); }
+.hero .status {
+  font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-soft);
+  display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: var(--sp-3);
+}
+.hero .status::before {
+  content: ""; width: 8px; height: 8px; border-radius: 50%;
+  background: #22c55e; box-shadow: 0 0 0 3px rgba(34,197,94,0.2);
+}
+.hero h1 { max-width: 15ch; }
+.hero h1 .accent { color: var(--accent); }
+.hero-sub { font-size: 1.15rem; max-width: 60ch; margin-top: var(--sp-3); }
+.hero-actions { display: flex; gap: var(--sp-2); margin-top: var(--sp-4); flex-wrap: wrap; }
+
+/* Row of small text links (email / GitHub / LinkedIn) under the hero */
+.hero-links { display: flex; gap: var(--sp-3); margin-top: var(--sp-3); flex-wrap: wrap; }
+.hero-links a { font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink-soft); }
+.hero-links a:hover { color: var(--accent); }
+
+/* ============================ 7. ABOUT / BIO =========================== */
+.about-grid {
+  display: grid; grid-template-columns: 1fr 260px; gap: var(--sp-5); align-items: start;
+}
+.about-body p + p { margin-top: var(--sp-2); }
+.about-photo {
+  aspect-ratio: 3 / 4; border-radius: var(--radius);
+  background: var(--accent-soft); border: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ink-soft); font-family: var(--font-mono); font-size: 0.85rem;
+  overflow: hidden;
+}
+.about-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ============================ 8. SKILLS =============================== */
+.skills-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--sp-3); margin-top: var(--sp-3); }
+.skill-group h3 { font-size: 0.95rem; margin-bottom: var(--sp-1); }
+.chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.chip {
+  font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-soft);
+  background: var(--bg); border: 1px solid var(--line);
+  padding: 0.25rem 0.6rem; border-radius: 6px;
+}
+
+/* ============================ 9. PROJECTS ============================= */
+.project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: var(--sp-3); margin-top: var(--sp-4); }
+.card {
+  display: flex; flex-direction: column;
+  border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;
+  background: var(--bg); transition: border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+}
+.card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(15,23,42,0.06); }
+.card--featured { grid-column: 1 / -1; }
+
+.card-media {
+  height: 200px; background: var(--accent-soft);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ink-soft); font-family: var(--font-mono); font-size: 0.82rem;
+  border-bottom: 1px solid var(--line);
+}
+.card-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.card-body { padding: var(--sp-3); display: flex; flex-direction: column; flex: 1; }
+.card-role { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: var(--sp-1); }
+.card-body h3 { margin-bottom: var(--sp-1); }
+.card-body p { font-size: 0.92rem; }
+.card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: var(--sp-2); }
+.card-links { display: flex; flex-wrap: wrap; gap: var(--sp-1); margin-top: auto; padding-top: var(--sp-3); }
+
+/* ============================ 10. CONTACT + FOOTER ===================== */
+.contact { text-align: center; }
+.contact h2 { margin-bottom: var(--sp-2); }
+.contact p { max-width: 52ch; margin-inline: auto; }
+.contact .btn { margin-top: var(--sp-3); }
+
+.footer { border-top: 1px solid var(--line); padding-block: var(--sp-4); }
+.footer-inner {
+  max-width: var(--maxw); margin-inline: auto; padding-inline: var(--sp-3);
+  display: flex; justify-content: space-between; align-items: center; gap: var(--sp-2);
+  flex-wrap: wrap; font-size: 0.88rem; color: var(--ink-soft);
+}
+.footer-links { display: flex; gap: var(--sp-3); }
+.footer-links a { color: var(--ink-soft); }
+.footer-links a:hover { color: var(--accent); }
+
+/* ============================ 11. RESPONSIVE ========================== */
+@media (max-width: 720px) {
+  .about-grid { grid-template-columns: 1fr; gap: var(--sp-3); }
+  .about-photo { max-width: 220px; }
+  .nav-links { gap: var(--sp-2); }
+  .nav-links a { font-size: 0.85rem; }
+  :root { --sp-6: 4rem; --sp-5: 3rem; }
+}
