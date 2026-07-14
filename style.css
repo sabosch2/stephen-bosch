@@ -175,6 +175,11 @@ a:hover { color: var(--accent-dark); }
 }
 .card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(36,38,43,0.06); }
 .card--featured { grid-column: 1 / -1; }
+/* The featured card is full width. Its image box is set to the exact aspect
+   ratio of the Starship ascent photo (2000 x 800), so the photo is never
+   cropped no matter how wide the screen is. If you swap in a different
+   image, update this ratio to match it. */
+.card--featured .card-media { height: auto; aspect-ratio: 2000 / 800; }
 
 .card-media {
   height: 200px; background: var(--accent-soft);
@@ -182,7 +187,18 @@ a:hover { color: var(--accent-dark); }
   color: var(--ink-soft); font-family: var(--font-mono); font-size: 0.82rem;
   border-bottom: 1px solid var(--line);
 }
+/* A photo fills the whole box, cropping to fit. */
 .card-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* A LOGO must never be cropped, so this variant shows it whole, centred and
+   padded on a plain background. Add the class alongside .card-media:
+     <div class="card-media card-media--logo"><img src="..." alt="..." /></div> */
+.card-media--logo { background: var(--bg); padding: var(--sp-4); }
+.card-media--logo img {
+  width: 100%; height: 100%;
+  object-fit: contain;      /* show the whole logo, don't crop it */
+  max-width: 320px;         /* keep it from getting comically large */
+}
 
 .card-body { padding: var(--sp-3); display: flex; flex-direction: column; flex: 1; }
 .card-year { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--ink-soft); margin-bottom: var(--sp-1); }
@@ -228,6 +244,138 @@ a:hover { color: var(--accent-dark); }
 }
 .back-link { font-family: var(--font-mono); font-size: 0.85rem; }
 
+/* ==================== 9b. EXPERIENCE DETAIL PAGES ==================== */
+/* Used by the pages in the experience/ folder. Each page has a header
+   (title + role + dates) and then one ".activity" block per thing you
+   worked on there. */
+
+.exp-header { padding-block: var(--sp-5) var(--sp-4); border-bottom: 1px solid var(--line); }
+.exp-header h1 { font-size: clamp(1.9rem, 4vw, 2.6rem); }
+.exp-role { font-size: 1.05rem; color: var(--ink-soft); margin-top: var(--sp-1); }
+.exp-dates {
+  font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-soft);
+  display: block; margin-bottom: var(--sp-2);
+}
+
+/* The opening paragraph of the page, set a little larger.
+   Capped so the line length stays readable on a wide screen. */
+.exp-lead { font-size: 1.1rem; color: var(--ink); margin-top: var(--sp-3); max-width: 62ch; }
+
+/* ---- Activity blocks ----
+   Each activity is text on one side and its photo on the other. The photo
+   automatically alternates sides: right on the 1st, 3rd, 5th block, and
+   left on the 2nd, 4th, 6th. You don't have to do anything to make that
+   happen - just add blocks in order and the pattern takes care of itself. */
+.activity {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-5);
+  align-items: center;
+  padding-top: var(--sp-5);
+  margin-top: var(--sp-5);
+  border-top: 1px solid var(--line);
+}
+.activity:first-of-type { padding-top: var(--sp-2); margin-top: var(--sp-2); border-top: none; }
+
+/* This one line is what flips the photo to the left on every other block */
+.activity:nth-of-type(even) .activity-media { order: -1; }
+
+.activity h2 { margin-bottom: var(--sp-1); }
+.activity-meta {
+  font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.04em;
+  color: var(--ink-soft); margin-bottom: var(--sp-2);
+}
+.activity-body p + p { margin-top: var(--sp-2); }
+
+/* The photo column. If you put more than one photo in here they simply
+   stack on top of each other with a gap between. */
+.activity-media { display: flex; flex-direction: column; gap: var(--sp-2); }
+
+.activity-photo {
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--accent-soft);
+  overflow: hidden;
+  /* centres the "Photo" placeholder text until a real image is added */
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ink-soft); font-family: var(--font-mono); font-size: 0.82rem;
+}
+.activity-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Optional caption under a photo */
+.activity-caption {
+  font-size: 0.8rem; color: var(--ink-soft); margin-top: var(--sp-1);
+  text-align: center;
+}
+
+/* ---- Photo collage ----
+   A 2x2 grid of photos for a section that has several images instead of one.
+   Use it in place of a single .activity-photo:
+     <div class="activity-media">
+       <div class="activity-collage">
+         <figure><img src="..." alt="..." /></figure>   (x4)
+       </div>
+     </div>
+   Each tile keeps a 16:9 shape, which matches these photos, so nothing
+   important gets cropped out. */
+.activity-collage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-1);
+}
+.activity-collage figure {
+  margin: 0;
+  aspect-ratio: 16 / 9;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--accent-soft);
+}
+.activity-collage img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 200ms ease;
+}
+.activity-collage figure:hover img { transform: scale(1.04); }
+
+/* A "--stack" collage is a single column of images rather than a 2x2 grid.
+   Good when a section has two near-square images. The tiles use a 5:4 shape,
+   which is gentle enough that near-square photos aren't cropped much. */
+.activity-collage--stack { grid-template-columns: 1fr; }
+.activity-collage--stack figure { aspect-ratio: 5 / 4; }
+
+/* A "--pair" collage puts two images SIDE BY SIDE at a near-square shape, so
+   two roughly-square photos sit together without being cropped much. This
+   keeps the section short (about the height of one photo) rather than stacking
+   into a tall block. */
+.activity-collage--pair { grid-template-columns: 1fr 1fr; align-items: center; }
+.activity-collage--pair figure { aspect-ratio: 1 / 1; }
+
+/* Like --pair, but tiles keep a 3:2 landscape shape. Use for two wide photos
+   (e.g. action shots) so they sit side by side without being cropped. */
+.activity-collage--pair-wide { grid-template-columns: 1fr 1fr; align-items: center; }
+.activity-collage--pair-wide figure { aspect-ratio: 3 / 2; }
+
+/* ---- Bottom bar linking to the other experience pages ----
+   Back link on the left, the two sibling pages on the right, so no page
+   is a dead end. Kept deliberately quiet so it doesn't compete with the
+   content above it. */
+.exp-footer-nav {
+  margin-top: var(--sp-6);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--line);
+  display: flex; justify-content: space-between; align-items: center;
+  gap: var(--sp-3); flex-wrap: wrap;
+}
+.exp-siblings { display: flex; align-items: center; gap: var(--sp-3); flex-wrap: wrap; }
+.exp-siblings-label {
+  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--ink-soft);
+}
+.exp-siblings a { font-size: 0.9rem; color: var(--ink); }
+.exp-siblings a:hover { color: var(--accent); }
+
 /* ============================ 10. FOOTER ============================== */
 .footer { border-top: 1px solid var(--line); padding-block: var(--sp-4); }
 .footer-inner {
@@ -247,5 +395,11 @@ a:hover { color: var(--accent-dark); }
   .nav-links { gap: var(--sp-2); }
   .nav-links a { font-size: 0.85rem; }
   .nav-logo img { height: 36px; }
+
+  /* On a phone there's no room for two columns, so the photo drops below
+     the text and the left/right alternation is switched off. */
+  .activity { grid-template-columns: 1fr; gap: var(--sp-3); }
+  .activity:nth-of-type(even) .activity-media { order: 0; }
+
   :root { --sp-6: 4rem; --sp-5: 3rem; }
 }
