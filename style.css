@@ -287,6 +287,15 @@ a:hover { color: var(--accent-dark); }
 }
 .activity-body p + p { margin-top: var(--sp-2); }
 
+/* A list of awards/honours. Each item is an award name, its year, and a
+   short description. To add one, copy a <li> block. */
+.awards { list-style: none; margin-top: var(--sp-2); }
+.awards li { padding-block: var(--sp-2); border-top: 1px solid var(--line); }
+.awards li:first-child { border-top: none; }
+.award-name { font-weight: 600; color: var(--ink); }
+.award-year { font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-soft); margin-left: 0.5rem; }
+.award-desc { font-size: 0.9rem; color: var(--ink-soft); margin-top: 0.25rem; }
+
 /* The photo column. If you put more than one photo in here they simply
    stack on top of each other with a gap between. */
 .activity-media { display: flex; flex-direction: column; gap: var(--sp-2); }
@@ -303,6 +312,11 @@ a:hover { color: var(--accent-dark); }
   color: var(--ink-soft); font-family: var(--font-mono); font-size: 0.82rem;
 }
 .activity-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* For a LOGO rather than a photo: show it whole (never cropped), centred on
+   its own background colour so it fills the slot seamlessly. Set the colour
+   inline to match the logo, e.g. style="background:#12294B". */
+.activity-photo--logo img { object-fit: contain; padding: var(--sp-3); }
 
 /* Optional caption under a photo */
 .activity-caption {
@@ -344,6 +358,19 @@ a:hover { color: var(--accent-dark); }
    which is gentle enough that near-square photos aren't cropped much. */
 .activity-collage--stack { grid-template-columns: 1fr; }
 .activity-collage--stack figure { aspect-ratio: 5 / 4; }
+
+/* An "--gallery" activity breaks out of the two-column layout: the text sits
+   on its own, and a full-width row of photos runs beneath it. Good for a
+   section that has several photos rather than one. */
+.activity--gallery { display: block; }
+.activity-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-2); margin-top: var(--sp-3); }
+.activity-gallery figure {
+  margin: 0; aspect-ratio: 4 / 3; border-radius: var(--radius); overflow: hidden;
+  border: 1px solid var(--line); background: var(--accent-soft);
+}
+.activity-gallery img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 200ms ease; }
+.activity-gallery figure:hover img { transform: scale(1.04); }
+@media (max-width: 720px) { .activity-gallery { grid-template-columns: 1fr 1fr; } }
 
 /* A "--pair" collage puts two images SIDE BY SIDE at a near-square shape, so
    two roughly-square photos sit together without being cropped much. This
